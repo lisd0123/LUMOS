@@ -1,0 +1,59 @@
+## 서버 포트 설정
+server:
+  port: 8080
+
+## DB 연결 정보 및 파일 업로드 용량 제한
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: C##LUMOS
+    password: LUMOS
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+  web:
+    resources:
+      static-locations: classpath:/productimgs/
+
+## jpa config
+jpa:
+  generate-ddl: false
+  show-sql: true
+  database: oracle
+  properties:
+    hibernate:
+      '[format_sql]': true
+      
+## HS512 알고리즘을 사용할 것이기 때문에 512bit, 즉 64byte 이상의 secret key를 사용해야 한다.
+## Secret 값은 특정 문자열을 Base64 로 인코딩한 값 사용
+jwt:
+  secret: MRC7BP2twg5jnUJo90EmPFKIN22qRAo2EnnY6Il7BkrCnALGzeVjDoXHMAyCJA8WtODS8BjIz9GjB7t5LyN/nw==
+
+# swagger-ui custom path
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  
+## 이미지 저장할 위치와 응답할 때 이미지 주소 세팅
+image:
+
+## WebConfig에 세팅
+  add-resource-locations: classpath:/static/
+  add-resource-handler: /**
+  
+## ProductService에 세팅
+  image-dir: src/main/resources/static/productimgs
+  image-url: http://localhost:8080/productimgs/
+  image-dir-question: src/main/resources/static/questionimgs
+  image-url-question: http://localhost:8080/questionimgs/
+  image-dir-review: src/main/resources/static/reviewimgs
+  image-url-review: http://localhost:8080/reviewimgs/
+  
+# Logging Level
+logging: 
+  level:
+    root: info
+  
